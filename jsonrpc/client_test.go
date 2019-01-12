@@ -2,10 +2,11 @@ package jsonrpc
 
 import (
 	"github.com/stretchr/testify/assert"
+	"os"
 	"testing"
 )
 
-const testurl = "https://api.arkcoin.net/:8080"
+var testurl = os.Getenv("TESTURL")
 
 // newTestClient is used to get a client for testing purposes
 func newTestClient() (*Client, error) {
