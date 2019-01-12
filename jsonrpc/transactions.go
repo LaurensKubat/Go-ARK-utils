@@ -7,7 +7,7 @@ type Transactions Service
 
 // Create creates a transaction. After the creation, the transaction has to be broadcast using Transactions.Broadcast
 // amount is the amount in arktoshis, recipientID is the address of the recipient and passphrase is the passphrase of the sender
-func (t Transactions) Create(amount string, recipientID string, passphrase string) (TransactionsCreate, error) {
+func (t *Transactions) Create(amount string, recipientID string, passphrase string) (TransactionsCreate, error) {
 	r, err := t.client.prepBody("transactions.create", Params{Amount: amount, RecipientID: recipientID,
 		Passphrase: passphrase})
 	if err != nil {
@@ -35,7 +35,7 @@ func (t Transactions) Create(amount string, recipientID string, passphrase strin
 
 // Broadcast broadcasts transactions. Any transaction that you wish to broadcast have to be created through Transactions.Create.
 // The ids of the transaction should be the ids returned by Transactions.Create
-func (t Transactions) Broadcast(ids []string) (TransactionsBroadcast, error) {
+func (t *Transactions) Broadcast(ids []string) (TransactionsBroadcast, error) {
 	r, err := t.client.prepBody("transactions.broadcast", Params{Txs: ids})
 	if err != nil {
 		return TransactionsBroadcast{}, err
@@ -89,7 +89,7 @@ func (t Transactions) Info(id string) (TransactionsInfo, error) {
 // Bip38Create creates a transaction from a BIP38 wallet
 // amount is the amout in arktoshis, recipientID is the address of the recipient, bip38 is the bip38 of the sender,
 // userID is the ID of the sender
-func (t Transactions) Bip38Create(amount string, recipientID string, bip38 string, userID string) (TransactionsBIP38Create, error) {
+func (t *Transactions) Bip38Create(amount string, recipientID string, bip38 string, userID string) (TransactionsBIP38Create, error) {
 	r, err := t.client.prepBody("transactions.bip38.create", Params{RecipientID: recipientID, Amount: amount,
 		Bip38: bip38, UserID: userID})
 	if err != nil {
