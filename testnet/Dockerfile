@@ -1,7 +1,7 @@
-FROM node:9
+FROM node:10
 
 # normally you would use a seperate docker container for the database.
-# this image is however intended for maximum hacking purposes, so we simply put everything in it.
+# since this image will only be used for running the tests in the package, we all have it in the same docker container
 RUN apt update
 RUN apt install postgresql postgresql-contrib -y
 
@@ -40,9 +40,10 @@ EXPOSE 5432
 
 COPY entrypoint.sh /
 
-RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.4/main/postgresql.conf
-RUN echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/9.4/main/pg_hba.conf
+RUN echo "listen_addresses = '*'" >> /etc/postgresql/9.6/main/postgresql.conf
+RUN echo "host all all 0.0.0.0/0 trust" >> /etc/postgresql/9.6/main/pg_hba.conf
+RUN chmod a+x entrypoint.sh
 
 # this will start an entire test network, including genesis block. To find the secrets, check out:
-# https://github.com/ArkEcosystem/core/blob/develop/packages/core/lib/config/testnet/delegates.json
+# https://github.com/ArkEcosystem/core/blob/master/packages/core/lib/config/testnet/delegates.json
 ENTRYPOINT ./entrypoint.sh

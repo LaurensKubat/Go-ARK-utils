@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 redis-server &
 service postgresql start
+
 while ! pg_isready -h 0.0.0.0 -p 5432 > /dev/null 2> /dev/null; do
         sleep 1
 done
