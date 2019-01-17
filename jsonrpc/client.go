@@ -114,7 +114,7 @@ func (c Client) handleResponse(response http.Response) (Response, error) {
 		return res, nil
 	}
 	errp := ErrorP{}
-	err = json.Unmarshal(res.Error, errp)
+	err = json.Unmarshal(res.Error, &errp)
 	if err != nil {
 		return Response{}, err
 	}

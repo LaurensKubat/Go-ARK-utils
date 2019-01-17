@@ -1,6 +1,8 @@
 package jsonrpc
 
-import "encoding/json"
+import (
+	"encoding/json"
+)
 
 // Transactions is the service supporting all transactions related api calls in https://docs.ark.io/api/json-rpc/transactions.html
 type Transactions Service
