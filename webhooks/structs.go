@@ -45,12 +45,6 @@ type CreateBody struct {
 	Conditions []Condition `json:"Conditions"`
 }
 
-type Condition struct {
-	Key       string `json:"key"`
-	Condition string `json:"condition"`
-	Value     string `json:"value"`
-}
-
 type Create struct {
 	Data struct {
 		ID         int    `json:"id"`
