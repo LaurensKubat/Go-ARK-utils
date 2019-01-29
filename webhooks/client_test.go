@@ -28,7 +28,7 @@ func TestNewCondition(t *testing.T) {
 func TestClient_Create(t *testing.T) {
 	c, err := newTestClient()
 	require.NoError(t, err)
-	res, err := c.Create(BlockForged, "faketarget", "true", []Condition{
+	res, err := c.Create(BlockForged, "fakeurl", "true", []Condition{
 		NewCondition("AHXtmB84sTZ9Zd35h9Y1vfFvPE2Xzqj8ri", Equal, "AHXtmB84sTZ9Zd35h9Y1vfFvPE2Xzqj8ri"),
 	})
 	assert.NoError(t, err)
