@@ -22,6 +22,10 @@ type Service struct {
 type Client struct {
 	client *http.Client
 	url    *url.URL
+
+	Transactions *Transactions
+	Blocks       *Blocks
+	Wallets      *Wallets
 }
 
 type request struct {
@@ -43,7 +47,7 @@ type Params struct {
 	Address     string   `json:"address, omitempty"`
 }
 
-func newClient(rawurl string) (*Client, error) {
+func NewClient(rawurl string) (*Client, error) {
 	URL, err := url.Parse(rawurl)
 	if err != nil {
 		return nil, err
@@ -52,6 +56,9 @@ func newClient(rawurl string) (*Client, error) {
 		client: http.DefaultClient,
 		url:    URL,
 	}
+	c.Wallets = &Wallets{client: &c}
+	c.Blocks = &Blocks{client: &c}
+	c.Transactions = &Transactions{client: &c}
 	return &c, nil
 }
 
@@ -107,7 +114,7 @@ func (c Client) handleResponse(response http.Response) (Response, error) {
 		return res, nil
 	}
 	errp := ErrorP{}
-	err = json.Unmarshal(res.Error, errp)
+	err = json.Unmarshal(res.Error, &errp)
 	if err != nil {
 		return Response{}, err
 	}

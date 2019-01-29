@@ -6,7 +6,7 @@ import "encoding/json"
 type Wallets Service
 
 // Create creates a wallet with passphrase as the passphrase to be used for the wallet
-func (w Wallets) Create(passphrase string) (WalletsCreate, error) {
+func (w *Wallets) Create(passphrase string) (WalletsCreate, error) {
 	r, err := w.client.prepBody("wallets.create", Params{Passphrase: passphrase})
 	if err != nil {
 		return WalletsCreate{}, err
@@ -32,7 +32,7 @@ func (w Wallets) Create(passphrase string) (WalletsCreate, error) {
 }
 
 // Info gets a wallet, address is the address of the wallet to be retrieved
-func (w Wallets) Info(address string) (WalletsInfo, error) {
+func (w *Wallets) Info(address string) (WalletsInfo, error) {
 	r, err := w.client.prepBody("wallets.info", Params{Address: address})
 	if err != nil {
 		return WalletsInfo{}, err
@@ -85,7 +85,7 @@ func (w Wallets) Transactions(address string, offset int) (WalletsTransactions, 
 }
 
 // Bip38Info gets a bip38 wallet, userID is the identifier of the wallet to be retrieved
-func (w Wallets) Bip38Info(userID string) (WalletsBIP38Info, error) {
+func (w *Wallets) Bip38Info(userID string) (WalletsBIP38Info, error) {
 	r, err := w.client.prepBody("wallets.bip38.info", Params{UserID: userID})
 	if err != nil {
 		return WalletsBIP38Info{}, err
